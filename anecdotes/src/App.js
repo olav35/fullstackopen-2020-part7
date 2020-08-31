@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import { Switch, Link, Route } from 'react-router-dom'
+// switch renderer view
+// link + to="url"
+// route definerer routes
 
 const Menu = () => {
   const padding = {
@@ -6,9 +10,9 @@ const Menu = () => {
   }
   return (
     <div>
-      <a href='#' style={padding}>anecdotes</a>
-      <a href='#' style={padding}>create new</a>
-      <a href='#' style={padding}>about</a>
+      <Link to="/" style={padding}>anecdotes</Link>
+      <Link to="/create" style={padding}>create new</Link>
+      <Link to="/about" style={padding}>about</Link>
     </div>
   )
 }
