@@ -70,6 +70,7 @@ const CreateNew = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    props.displayNotification(`a new anecdote ${content} created!`)
     history.push('/')
     props.addNew({
       content,
@@ -141,18 +142,24 @@ const App = () => {
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
 
+  const displayNotification = (content, duration = 10000) => {
+    setNotification(content)
+    setTimeout(() => setNotification((currentContent) => currentContent === content ? '' : currentContent), duration)
+  }
+
   const match = useRouteMatch('/anecdotes/:id')
   const anecdote = match ? anecdotes.find(({id}) => id === match.params.id) : null
   return (
     <div>
       <h1>Software anecdotes</h1>
+      {notification ? notification : null}
       <Menu />
       <Switch>
         <Route path="/about">
           <About />
         </Route>
         <Route path="/create">
-          <CreateNew addNew={addNew} />
+          <CreateNew displayNotification={displayNotification} addNew={addNew} />
         </Route>
         <Route path="/anecdotes/:id">
           <Anecdote anecdote={anecdote}/>
