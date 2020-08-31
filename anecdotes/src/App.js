@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useRouteMatch, Switch, Link, Route } from 'react-router-dom'
+import { useRouteMatch, Switch, Link, Route, useHistory } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -65,10 +65,12 @@ const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
+  const history = useHistory()
 
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    history.push('/')
     props.addNew({
       content,
       author,
