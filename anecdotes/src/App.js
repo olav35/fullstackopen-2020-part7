@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
-import { Switch, Link, Route } from 'react-router-dom'
-// switch renderer view
-// link + to="url"
-// route definerer routes
+import { useRouteMatch, Switch, Link, Route } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -16,6 +13,16 @@ const Menu = () => {
     </div>
   )
 }
+
+const Anecdote = ({ anecdote }) => (
+  <div>
+    <h2>{anecdote.content} by {anecdote.author}</h2>
+    <div>has {anecdote.votes} {anecdote.votes === 1 ? 'vote' : 'votes'}</div>
+    <br/>
+    <div>for more info see <a href={anecdote.info}>{anecdote.info}</a></div>
+    <br />
+  </div>
+)
 
 const AnecdoteList = ({ anecdotes }) => (
   <div>
@@ -132,6 +139,8 @@ const App = () => {
     setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
   }
 
+  const match = useRouteMatch('/anecdotes/:id')
+  const anecdote = match ? anecdotes.find(({id}) => id === match.params.id) : null
   return (
     <div>
       <h1>Software anecdotes</h1>
@@ -142,6 +151,9 @@ const App = () => {
         </Route>
         <Route path="/create">
           <CreateNew addNew={addNew} />
+        </Route>
+        <Route path="/anecdotes/:id">
+          <Anecdote anecdote={anecdote}/>
         </Route>
         <Route path="/">
           <AnecdoteList anecdotes={anecdotes} />
