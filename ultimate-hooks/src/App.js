@@ -20,7 +20,9 @@ const useResource = (baseUrl) => {
   }, [baseUrl])
 
   const create = (resource) => {
-    // ...
+    axios.post(baseUrl, resource).then(response => {
+      setResources([...resources, response.data])
+    })
   }
 
   const service = {
@@ -41,11 +43,14 @@ const App = () => {
   const handleNoteSubmit = (event) => {
     event.preventDefault()
     noteService.create({ content: content.value })
+    resetContent()
   }
  
   const handlePersonSubmit = (event) => {
     event.preventDefault()
     personService.create({ name: name.value, number: number.value})
+    resetName()
+    resetNumber()
   }
 
   return (
