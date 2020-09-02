@@ -66,6 +66,7 @@ const CreateNew = (props) => {
   const content = useField()
   const author = useField()
   const info = useField()
+  const allFields = [content, author, info]
   const history = useHistory()
 
   const handleSubmit = (e) => {
@@ -78,6 +79,11 @@ const CreateNew = (props) => {
       info: info.value,
       votes: 0
     })
+  }
+
+  const clearFields = (event) => {
+    event.preventDefault()
+    allFields.forEach(field => field.reset())
   }
 
   return (
@@ -97,6 +103,7 @@ const CreateNew = (props) => {
           <input {...info} />
         </div>
         <button>create</button>
+        <button onClick={clearFields}>clear</button>
       </form>
     </div>
   )
