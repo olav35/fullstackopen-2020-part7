@@ -20,7 +20,12 @@ const useField = (type) => {
 const useResource = (baseUrl) => {
   const [resources, setResources] = useState([])
 
-  // ...
+  useEffect(() => {
+    axios.get(baseUrl)
+      .then(response => {
+        setResources(response.data)
+      })
+  }, [baseUrl])
 
   const create = (resource) => {
     // ...
@@ -30,9 +35,7 @@ const useResource = (baseUrl) => {
     create
   }
 
-  return [
-    resources, service
-  ]
+  return [resources, service]
 }
 
 const App = () => {
