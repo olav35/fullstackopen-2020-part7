@@ -63,10 +63,9 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const content = useField()
-  const author = useField()
-  const info = useField()
-  const allFields = [content, author, info]
+  const [content, resetContent] = useField()
+  const [author, resetAuthor] = useField()
+  const [info, resetInfo] = useField()
   const history = useHistory()
 
   const handleSubmit = (e) => {
@@ -83,7 +82,9 @@ const CreateNew = (props) => {
 
   const clearFields = (event) => {
     event.preventDefault()
-    allFields.forEach(field => field.reset())
+    resetContent()
+    resetAuthor()
+    resetInfo()
   }
 
   return (
