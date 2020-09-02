@@ -2,19 +2,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-
-const useField = (type) => {
+const useField = (type = 'text') => {
   const [value, setValue] = useState('')
-
-  const onChange = (event) => {
-    setValue(event.target.value)
-  }
-
-  return {
-    type,
-    value,
-    onChange
-  }
+  const onChange = (event) => setValue(event.target.value)
+  const reset = () => setValue('')
+  return [{ type, value, onChange}, reset]
 }
 
 const useResource = (baseUrl) => {
@@ -39,9 +31,9 @@ const useResource = (baseUrl) => {
 }
 
 const App = () => {
-  const content = useField('text')
-  const name = useField('text')
-  const number = useField('text')
+  const [content, resetContent] = useField()
+  const [name, resetName] = useField()
+  const [number, resetNumber] = useField()
 
   const [notes, noteService] = useResource('http://localhost:3005/notes')
   const [persons, personService] = useResource('http://localhost:3005/persons')
