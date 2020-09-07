@@ -9,6 +9,8 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import storage from './utils/storage'
 
+import { setNotification } from './store'
+
 const App = () => {
   const dispatch = useDispatch()
   const [blogs, setBlogs] = useState([])
@@ -30,18 +32,7 @@ const App = () => {
   }, [])
 
   const notifyWith = (message, type='success') => {
-    dispatch({
-      data: {
-        message,
-        type
-      },
-      type: 'SET_NOTIFICATION'
-    })
-    setTimeout(() => {
-      dispatch({
-        type: 'CLEAR_NOTIFICATION'
-      })
-    }, 5000)
+    dispatch(setNotification(message, type))
   }
 
   const handleLogin = async (event) => {
