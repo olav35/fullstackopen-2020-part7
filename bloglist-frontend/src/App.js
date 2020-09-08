@@ -9,7 +9,7 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import storage from './utils/storage'
 
-import { setNotification } from './store'
+import { setNotification } from './reducers/notificationReducer'
 
 const App = () => {
   const dispatch = useDispatch()
