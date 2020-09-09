@@ -24,7 +24,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializeBlogs())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     const user = storage.loadUser()
@@ -52,14 +52,6 @@ const App = () => {
     }
   }
 
-  // Not ported to redux as of yet (not working)
-  const handleLike = async (id) => {
-    const blogToLike = blogs.find(b => b.id === id)
-    const likedBlog = { ...blogToLike, likes: blogToLike.likes + 1, user: blogToLike.user.id }
-    await blogService.update(likedBlog)
-    setBlogs(blogs.map(b => b.id === id ?  { ...blogToLike, likes: blogToLike.likes + 1 } : b))
-  }
-  
   // Not ported to redux as of yet (not working)
   const handleRemove = async (id) => {
     const blogToRemove = blogs.find(b => b.id === id)
@@ -125,7 +117,6 @@ const App = () => {
         <Blog
           key={blog.id}
           blog={blog}
-          handleLike={handleLike}
           handleRemove={handleRemove}
           own={user.username===blog.user.username}
         />
