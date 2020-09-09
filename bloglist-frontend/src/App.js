@@ -6,7 +6,7 @@ import Togglable from './components/Togglable'
 import NewBlog from './components/NewBlog'
 
 import { initializeBlogs } from './reducers/blogReducer'
-import { loadUser, login } from './reducers/userReducer'
+import { loadUser, login, logout } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -33,8 +33,7 @@ const App = () => {
   }
 
   const handleLogout = () => {
-    // setUser(null)
-    // storage.logoutUser()
+    dispatch(logout())
   }
 
   if ( !user ) {

@@ -5,6 +5,8 @@ import { setNotification } from '../reducers/notificationReducer'
 const reducer = (state = null, action) => {
   if(action.type === 'SET_USER') {
     return action.data.user
+  } else if(action.type === 'DELETE_USER') {
+    return null
   } else {
     return state
   }
@@ -31,6 +33,13 @@ export const login = (username, password) => {
     } catch(_) {
       dispatch(setNotification('wrong username/password', 'error'))
     }
+  }
+}
+
+export const logout = () => {
+  storage.logoutUser()
+  return {
+    type: 'DELETE_USER'
   }
 }
 
