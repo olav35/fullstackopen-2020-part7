@@ -5,7 +5,6 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import NewBlog from './components/NewBlog'
 
-import blogService from './services/blogs'
 import loginService from './services/login'
 import storage from './utils/storage'
 
@@ -15,7 +14,6 @@ import { initializeBlogs } from './reducers/blogReducer'
 const App = () => {
   const dispatch = useDispatch()
   const blogs = useSelector(state => state.blogs)
-  const [_, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -49,16 +47,6 @@ const App = () => {
       storage.saveUser(user)
     } catch(exception) {
       notifyWith('wrong username/password', 'error')
-    }
-  }
-
-  // Not ported to redux as of yet (not working)
-  const handleRemove = async (id) => {
-    const blogToRemove = blogs.find(b => b.id === id)
-    const ok = window.confirm(`Remove blog ${blogToRemove.title} by ${blogToRemove.author}`)
-    if (ok) {
-      await blogService.remove(id)
-      setBlogs(blogs.filter(b => b.id !== id))
     }
   }
 
@@ -117,7 +105,6 @@ const App = () => {
         <Blog
           key={blog.id}
           blog={blog}
-          handleRemove={handleRemove}
           own={user.username===blog.user.username}
         />
       )}
