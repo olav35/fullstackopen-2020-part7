@@ -5,16 +5,13 @@ import Notification from './components/Notification'
 import Togglable from './components/Togglable'
 import NewBlog from './components/NewBlog'
 
-import loginService from './services/login'
-import storage from './utils/storage'
-
-import { setNotification } from './reducers/notificationReducer'
 import { initializeBlogs } from './reducers/blogReducer'
+import { loadUser, login } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
   const blogs = useSelector(state => state.blogs)
-  const [user, setUser] = useState(null)
+  const user = useSelector(state => state.user)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -25,34 +22,19 @@ const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    const user = storage.loadUser()
-    setUser(user)
-  }, [])
-
-  const notifyWith = (message, type='success') => {
-    dispatch(setNotification(message, type))
-  }
+    dispatch(loadUser())
+  }, [dispatch])
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username, password
-      })
-
-      setUsername('')
-      setPassword('')
-      setUser(user)
-      notifyWith(`${user.name} welcome back!`)
-      storage.saveUser(user)
-    } catch(exception) {
-      notifyWith('wrong username/password', 'error')
-    }
+    dispatch(login(username, password))
+    setUsername('')
+    setPassword('')
   }
 
   const handleLogout = () => {
-    setUser(null)
-    storage.logoutUser()
+    // setUser(null)
+    // storage.logoutUser()
   }
 
   if ( !user ) {
