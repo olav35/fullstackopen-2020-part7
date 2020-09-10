@@ -29,6 +29,7 @@ const App = () => {
   const handleLogout = () => {
     dispatch(logout())
   }
+
   return (
     user ? (
       <Router>

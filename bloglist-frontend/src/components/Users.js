@@ -1,24 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import blogs from '../services/blogs'
+import { useSelector, useDispatch } from 'react-redux'
+import { initializeUsers } from '../reducers/usersReducer'
 
 const Table = styled.table`
   width: 500px;
 `
 
 const Users = () => {
-  const dummyUsers = [
-    {
-      id: 0,
-      name: 'Arto Hellas',
-      blogsCount: 6
-    },
-    {
-      id: '1',
-      name: 'Matti Luukkainen',
-      blogsCount: 2
-    }
-  ]
+  const dispatch = useDispatch()
+  const users = useSelector(state => state.users)
+
+  useEffect(() => {
+    dispatch(initializeUsers())
+  }, [useDispatch])
+
   return (
     <div>
       <h2>Users</h2>
@@ -31,10 +27,10 @@ const Users = () => {
         </thead>
         <tbody>
           {
-            dummyUsers.map(({ id, name, blogsCount }) => (
+            users.map(({ id, name, blogs }) => (
               <tr key={id}>
                 <td>{name}</td>
-                <td>{blogsCount}</td>
+                <td>{blogs.length}</td>
               </tr>
             ))
           }
