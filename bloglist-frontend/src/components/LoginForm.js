@@ -35,6 +35,7 @@ const LoginForm = () => {
           <input
             id='password'
             value={password}
+            type='password'
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
