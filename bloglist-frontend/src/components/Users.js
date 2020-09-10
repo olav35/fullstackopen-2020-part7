@@ -7,6 +7,10 @@ const Table = styled.table`
   width: 500px;
 `
 
+const H2 = styled.h2`
+  margin-bottom: 0;
+`
+
 const Users = () => {
   const dispatch = useDispatch()
   const users = useSelector(state => state.users)
@@ -17,7 +21,7 @@ const Users = () => {
 
   return (
     <div>
-      <h2>Users</h2>
+      <H2>Users</H2>
       <Table>
         <thead>
           <tr>
