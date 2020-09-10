@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Link
 } from 'react-router-dom'
 
 import LoginForm from './components/LoginForm'
@@ -41,6 +42,9 @@ const App = () => {
           {user.name} logged in <button onClick={handleLogout}>logout</button>
         </p>
         <Switch>
+          <Route exact path='/'>
+            <Blogs />
+          </Route>
           <Route path='/users/:id'>
             <User />
           </Route>
@@ -48,7 +52,9 @@ const App = () => {
             <Users />
           </Route>
           <Route path='/'>
-            <Blogs />
+            <div>
+              There is nothing here. View <Link to='/'>blogs</Link>
+            </div>
           </Route>
         </Switch>
       </Router>
