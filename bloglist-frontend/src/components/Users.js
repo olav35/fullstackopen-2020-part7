@@ -17,7 +17,7 @@ const Users = () => {
 
   useEffect(() => {
     dispatch(initializeUsers())
-  }, [useDispatch])
+  }, [dispatch])
 
   return (
     <div>
