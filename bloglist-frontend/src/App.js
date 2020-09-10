@@ -11,8 +11,6 @@ import LoginForm from './components/LoginForm'
 import Users from './components/Users'
 import Notification from './components/Notification'
 import Blogs from './components/Blogs'
-import User from './components/User'
-
 import { logout } from './reducers/userReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { loadUser } from './reducers/userReducer'
@@ -44,9 +42,6 @@ const App = () => {
         <Switch>
           <Route exact path='/'>
             <Blogs />
-          </Route>
-          <Route path='/users/:id'>
-            <User />
           </Route>
           <Route path='/users'>
             <Users />
