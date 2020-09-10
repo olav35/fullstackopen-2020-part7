@@ -5,12 +5,14 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
+
 import LoginForm from './components/LoginForm'
 import Users from './components/Users'
 import Notification from './components/Notification'
-import { logout } from './reducers/userReducer'
 import Blogs from './components/Blogs'
+import User from './components/User'
 
+import { logout } from './reducers/userReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 import { loadUser } from './reducers/userReducer'
 
@@ -39,6 +41,9 @@ const App = () => {
           {user.name} logged in <button onClick={handleLogout}>logout</button>
         </p>
         <Switch>
+          <Route path='/users/:id'>
+            <User />
+          </Route>
           <Route path='/users'>
             <Users />
           </Route>

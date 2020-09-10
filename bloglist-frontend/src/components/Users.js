@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { initializeUsers } from '../reducers/usersReducer'
+import { Link } from 'react-router-dom'
 
 const Table = styled.table`
   width: 500px;
@@ -33,7 +34,7 @@ const Users = () => {
           {
             users.map(({ id, name, blogs }) => (
               <tr key={id}>
-                <td>{name}</td>
+                <td><Link to={`/users/${id}`}>{name}</Link></td>
                 <td>{blogs.length}</td>
               </tr>
             ))
