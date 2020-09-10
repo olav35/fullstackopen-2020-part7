@@ -4,7 +4,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from 'react-router-dom'
 
 import LoginForm from './components/LoginForm'
@@ -12,16 +13,11 @@ import Users from './components/Users'
 import Notification from './components/Notification'
 import Blogs from './components/Blogs'
 import { logout } from './reducers/userReducer'
-import { initializeBlogs } from './reducers/blogReducer'
 import { loadUser } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
-
-  useEffect(() => {
-    dispatch(initializeBlogs())
-  }, [dispatch])
 
   useEffect(() => {
     dispatch(loadUser())
@@ -41,6 +37,9 @@ const App = () => {
         </p>
         <Switch>
           <Route exact path='/'>
+            <Redirect to='/blogs'/>
+          </Route>
+          <Route path='/blogs'>
             <Blogs />
           </Route>
           <Route path='/users'>

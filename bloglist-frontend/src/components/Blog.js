@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import React from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import { likeBlog, deleteBlog } from '../reducers/blogReducer'
 
-const Blog = ({ blog, own }) => {
+const Blog = () => {
   const dispatch = useDispatch()
-  const [visible, setVisible] = useState(false)
+  const history = useHistory()
+  const { id } = useParams()
+  const blog = useSelector(state => state.blogs.find(blog => blog.id === id))
+  const user = useSelector(state => state.user)
 
   const handleLike = (id) => {
     dispatch(likeBlog(id))
@@ -13,44 +16,21 @@ const Blog = ({ blog, own }) => {
 
   const handleRemove = (id) => {
     dispatch(deleteBlog(id))
+    history.push('/blogs')
   }
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
+  const isUserOwnerOfBlog = () => blog.user.username === user.username
 
-  const label = visible ? 'hide' : 'view'
-
-  return (
-    <div style={blogStyle} className='blog'>
-      <div>
-        <i>{blog.title}</i> by {blog.author} <button onClick={() => setVisible(!visible)}>{label}</button>
+  return blog === undefined ? <div>Loading blog post. If nothing is diplayed it is probably missing.</div> : (
+    <div>
+      <div>{blog.url}</div>
+      <div>likes {blog.likes}
+        <button onClick={() => handleLike(blog.id)}>like</button>
       </div>
-      {visible&&(
-        <div>
-          <div>{blog.url}</div>
-          <div>likes {blog.likes}
-            <button onClick={() => handleLike(blog.id)}>like</button>
-          </div>
-          <div>{blog.user.name}</div>
-          {own&&<button onClick={() => handleRemove(blog.id)}>remove</button>}
-        </div>
-      )}
+      <div>added by {blog.user.name}</div>
+      { isUserOwnerOfBlog() && <button onClick={() => handleRemove(blog.id)}>remove</button>}
     </div>
   )
-}
-
-Blog.propTypes = {
-  blog: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
-  own: PropTypes.bool.isRequired
 }
 
 export default Blog
