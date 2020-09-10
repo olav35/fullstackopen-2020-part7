@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { 
+  BrowserRouter as Router,
+  Switch,
+  Route
+ } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 import Blogs from './components/Blogs'
 
@@ -18,14 +23,16 @@ const App = () => {
     dispatch(loadUser())
   }, [dispatch])
 
-  if ( !user ) {
-    return (
-      <LoginForm/>
-    )
-  }
-
   return (
-    <Blogs/>
+    user ? (
+      <Router>
+        <Switch>
+          <Route path='/'>
+            <Blogs />
+          </Route>
+        </Switch>
+      </Router>
+    ) : <LoginForm/>
   )
 }
 
