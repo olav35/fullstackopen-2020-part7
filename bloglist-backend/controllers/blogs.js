@@ -11,6 +11,13 @@ router.get('/', async (request, response) => {
   response.json(blogs)
 })
 
+router.get('/:id/comment', async (request, response) => {
+  const { id } = request.params
+
+  const comments = await Comment.find({ blog: id })
+  response.json(comments)
+})
+
 router.get('/:bid/comment/:cid', async (request, response) => {
   const { cid } = request.params
   const comment = await Comment.findById(cid)
