@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +15,10 @@ import Notification from './components/Notification'
 import Blogs from './components/Blogs'
 import { logout } from './reducers/userReducer'
 import { loadUser } from './reducers/userReducer'
+const NavBar = styled.nav`
+  background: lightgrey;
+  padding: 1em;
+`
 
 const App = () => {
   const dispatch = useDispatch()
@@ -30,11 +35,11 @@ const App = () => {
   return (
     user ? (
       <Router>
-        <h2>blogs</h2>
+        <NavBar>
+          <Link to="/blogs">blogs</Link> <Link to="/users">users</Link> {user.name} logged in <button onClick={handleLogout}>logout</button>
+        </NavBar>
         <Notification/>
-        <p>
-          {user.name} logged in <button onClick={handleLogout}>logout</button>
-        </p>
+        <h2>Blog app</h2>
         <Switch>
           <Route exact path='/'>
             <Redirect to='/blogs'/>
