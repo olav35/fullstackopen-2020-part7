@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const jwt = require('jsonwebtoken')
 const Blog = require('../models/blog')
+const Comment = require('../models/comment')
 const User = require('../models/user')
 
 router.get('/', async (request, response) => {
@@ -8,6 +9,27 @@ router.get('/', async (request, response) => {
     .find({}).populate('user', { username: 1, name: 1 })
 
   response.json(blogs)
+})
+
+router.get('/:bid/comment/:cid', async (request, response) => {
+  const { cid } = request.params
+  const comment = await Comment.findById(cid)
+
+  response.json(comment)
+})
+
+router.post('/:id/comment', async (request, response) => {
+  const { content } = request.body
+  const { id } = request.params
+
+  const comment = new Comment({
+    content,
+    blog: id
+  })
+
+  const savedComment = await comment.save()
+
+  response.json(savedComment)
 })
 
 router.delete('/:id', async (request, response) => {
