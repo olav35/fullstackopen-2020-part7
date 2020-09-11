@@ -23,11 +23,6 @@ const Blogs = () => {
       <Route path={`${path}/:id`}>
         individual
         <Blog />
-        {/* <Blog
-        key={blog.id}
-        blog={blog}
-            own={user.username===blog.user.username}
-          /> */}
       </Route>
       <Route path={path}>
         <Togglable buttonLabel='create new blog'  ref={blogFormRef}>
