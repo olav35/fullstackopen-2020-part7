@@ -21,6 +21,14 @@ const NavBar = styled.nav`
   padding: 1em;
 `
 
+const Gradient = styled.div`
+  background: linear-gradient(lightblue, #a1a8f5);
+`
+
+const H2 = styled.h2`
+  margin-top: 0;
+`
+
 const App = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
@@ -41,23 +49,26 @@ const App = () => {
         </NavBar>
         <Notification/>
         <Puffy/>
-        <h2>Blog app</h2>
-        <Switch>
-          <Route exact path='/'>
-            <Redirect to='/blogs'/>
-          </Route>
-          <Route path='/blogs'>
-            <Blogs />
-          </Route>
-          <Route path='/users'>
-            <Users />
-          </Route>
-          <Route path='/'>
-            <div>
-              There is nothing here. View <Link to='/'>blogs</Link>
-            </div>
-          </Route>
-        </Switch>
+        <Gradient>
+          <H2>Blog app</H2>
+          <Switch>
+            <Route exact path='/'>
+              <Redirect to='/blogs'/>
+            </Route>
+            <Route path='/blogs'>
+              <Blogs />
+            </Route>
+            <Route path='/users'>
+              <Users />
+            </Route>
+            <Route path='/'>
+              <div>
+                There is nothing here. View <Link to='/'>blogs</Link>
+              </div>
+            </Route>
+          </Switch>
+
+        </Gradient>
       </Router>
     ) : <LoginForm/>
   )
