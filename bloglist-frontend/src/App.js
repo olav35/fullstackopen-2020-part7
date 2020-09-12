@@ -8,13 +8,14 @@ import {
   Link,
   Redirect
 } from 'react-router-dom'
-
 import LoginForm from './components/LoginForm'
 import Users from './components/Users'
 import Notification from './components/Notification'
 import Blogs from './components/Blogs'
 import { logout } from './reducers/userReducer'
 import { loadUser } from './reducers/userReducer'
+import Puffy from './components/Puffy'
+
 const NavBar = styled.nav`
   background: lightgrey;
   padding: 1em;
@@ -39,6 +40,7 @@ const App = () => {
           <Link to="/blogs">blogs</Link> <Link to="/users">users</Link> {user.name} logged in <button onClick={handleLogout}>logout</button>
         </NavBar>
         <Notification/>
+        <Puffy/>
         <h2>Blog app</h2>
         <Switch>
           <Route exact path='/'>
