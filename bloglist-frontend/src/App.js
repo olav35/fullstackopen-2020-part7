@@ -17,7 +17,7 @@ import { loadUser } from './reducers/userReducer'
 import Puffy from './components/Puffy'
 
 const NavBar = styled.nav`
-  background: lightgrey;
+  background: lightblue;
   padding: 1em;
 `
 
